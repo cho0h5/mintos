@@ -61,8 +61,8 @@ READDATA:
 
     mov ah, 0x02
     mov al, 0x1
-    mov ch, byte [TRACKNUMBER ]
-    mov cl, byte [SECTORNUMBER ]
+    mov ch, byte [ TRACKNUMBER ]
+    mov cl, byte [ SECTORNUMBER ]
     mov dh, byte [ HEADNUMBER ]
     mov dl, 0x00
     int 0x13

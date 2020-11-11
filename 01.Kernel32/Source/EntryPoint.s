@@ -8,6 +8,8 @@ START:
     mov ds, ax
     mov es, ax
 
+
+
     cli
     lgdt [ GDTR ]
 

@@ -23,7 +23,7 @@ kReadCPUID:
     mov dword [ esi ], ebx
 
     mov esi, dword [ ebp + 20 ]
-    mov dword [ esi ], edx
+    mov dword [ esi ], ecx
 
     mov esi, dword [ ebp + 24 ]
     mov dword [ esi ], edx
@@ -46,7 +46,6 @@ kSwitchAndExecute64bitKernel:
 
     mov ecx, 0xC0000080
     rdmsr
-
     or eax, 0x0100
     wrmsr
 

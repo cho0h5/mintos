@@ -21,7 +21,7 @@
 
 #pragma pack( push, 1 )
 
-typedef struct pageTableEntryStruct
+typedef struct kPageTableEntryStruct
 {
     DWORD dwAttributeAndLowerBaseAddress;
     DWORD dwUpperBaseAddressAndEXB;

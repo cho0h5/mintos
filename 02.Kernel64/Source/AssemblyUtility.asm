@@ -1,5 +1,9 @@
 [BITS 64]
 
+SECTION .text
+
+global kInPortByte, kOutPortByte
+
 kInPortByte:
     push rdx
 

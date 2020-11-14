@@ -1,53 +1,61 @@
 #include "Types.h"
 #include "Keyboard.h"
 
-void kPrintString( int iX, int iY, const char* pcString );
+void kPrintString(int iX, int iY, const char *pcString);
 
-void Main( void )
+void Main(void)
 {
-    char vcTemp[ 2 ] = { 0, };
+    char vcTemp[2] = {
+        0,
+    };
     BYTE bFlags;
     BYTE bTemp;
     int i = 0;
 
-    kPrintString( 0, 10, "Switch To IA-32e Mode Success!!" );
-    kPrintString( 0, 11, "IA-32e C Language Kernel Start............[PASS]" );
-    kPrintString( 0, 12, "Keyboard Active...........................[    ]" );
+    kPrintString(0, 10, "Switch To IA-32e Mode Success!!");
+    kPrintString(0, 11, "IA-32e C Language Kernel Start............[PASS]");
+    kPrintString(0, 12, "Keyboard Active...........................[    ]");
 
-    if( kActivateKeyboard() == TRUE )
+    if (kActivateKeyboard() == TRUE)
     {
-        kPrintString( 43, 12, "PASS" );
-        kChangeKeyboardLED( FALSE, FALSE, FALSE );
+        kPrintString(43, 12, "PASS");
+        kChangeKeyboardLED(FALSE, FALSE, FALSE);
     }
     else
     {
-        kPrintString( 45, 12, "FAIL" );
-        while( 1 );
+        kPrintString(45, 12, "FAIL");
+        while (1)
+            ;
     }
 
-    while( 1 )
+    while (1)
     {
-        if( kIsOutputBufferFull() == TRUE )
+        if (kIsOutputBufferFull() == TRUE)
         {
             bTemp = kGetKeyboardScanCode();
 
-            if( kConvertScanCodeToASCIICode( bTemp, &( vcTemp[ 0 ] ), &bFlags ) == TRUE )
+            if (kConvertScanCodeToASCIICode(bTemp, &(vcTemp[0]), &bFlags) == TRUE)
             {
-                if( bFlags & KEY_FLAGS_DOWN )
+                if ((bFlags & KEY_FLAGS_DOWN) /*&& !( bFlags & KEY_FLAGS_EXTENDEDKEY )*/)
                 {
-                    kPrintString( i++, 13, vcTemp );
+                    char a[2] = {
+                        '0' + bFlags,
+                    };
+                    kPrintString(i++, 13, &a);
                 }
             }
         }
     }
 }
 
-void kPrintString( int iX, int iY, const char* pcString ) {
-    CHARACTER* pstScreen = ( CHARACTER* ) 0xB8000;
+void kPrintString(int iX, int iY, const char *pcString)
+{
+    CHARACTER *pstScreen = (CHARACTER *)0xB8000;
     int i;
 
-    pstScreen += ( iY * 80 ) + iX;
-    for( i = 0 ; pcString[ i ] !=0 ; i++ ) {
-        pstScreen[ i ].bCharactor = pcString[ i ];
+    pstScreen += (iY * 80) + iX;
+    for (i = 0; pcString[i] != 0; i++)
+    {
+        pstScreen[i].bCharactor = pcString[i];
     }
 }

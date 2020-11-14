@@ -436,7 +436,7 @@ BOOL kConvertScanCodeToASCIICode(BYTE bScanCode, BYTE *pbASCIICode, BYTE *pbFlag
         *pbFlags = 0;
     }
 
-    if ((bScanCode & 0x80) == 0)
+    if ( (bScanCode & 0x80) == 0 )
     {
         *pbFlags |= KEY_FLAGS_DOWN;
     }

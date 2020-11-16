@@ -1,6 +1,7 @@
 [BITS 64]
 
 global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR
+global kEnableInterrupt, kDisableInterrupt, kReadRFLAGS
 
 SECTION .text
 
@@ -36,5 +37,19 @@ kLoadTR:
 
 kLoadIDTR:
     lidt [ rdi ]
+
+    ret
+
+kEnableInterrupt:
+    sti
+    ret
+
+kDisableInterrupt:
+    cli
+    ret
+
+kReadRFLAGS:
+    pushfq
+    pop rax
 
     ret

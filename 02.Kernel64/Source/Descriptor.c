@@ -17,7 +17,7 @@ void kInitializeGDTTableAndTSS(void)
     kSetGDTEntry8(&(pstEntry[0]), 0, 0, 0, 0, 0);
     kSetGDTEntry8(&(pstEntry[1]), 0, 0xFFFFF, GDT_FLAGS_UPPER_CODE, GDT_FLAGS_LOWER_KERNELCODE, GDT_TYPE_CODE);
     kSetGDTEntry8(&(pstEntry[2]), 0, 0xFFFFF, GDT_FLAGS_UPPER_DATA, GDT_FLAGS_LOWER_KERNELDATA, GDT_TYPE_DATA);
-    kSetGDTEntry16((GDTENTRY16 *)&(pstEntry[3]), 0x142028, sizeof(TSSSEGMENT) - 1, GDT_FLAGS_UPPER_TSS, GDT_FLAGS_LOWER_TSS, GDT_TYPE_TSS);
+    kSetGDTEntry16((GDTENTRY16 *)&(pstEntry[3]), (QWORD)pstTSS, sizeof(TSSSEGMENT) - 1, GDT_FLAGS_UPPER_TSS, GDT_FLAGS_LOWER_TSS, GDT_TYPE_TSS);
 
     kInitializeTSSSegment(pstTSS);
 }
@@ -36,7 +36,7 @@ void kSetGDTEntry16(GDTENTRY16 *pstEntry, QWORD qwBaseAddress, DWORD dwLimit, BY
 {
     pstEntry->wLowerLimit = dwLimit & 0xFFFF;
     pstEntry->wLowerBaseAddress = qwBaseAddress & 0xFFFF;
-    pstEntry->bMiddleBaseAddress1 = (qwBaseAddress & 0xFFFF);
+    pstEntry->bMiddleBaseAddress1 = (qwBaseAddress >> 16) & 0xFF;
     pstEntry->bTypeAndLowerFlag = bLowerFlags | bType;
     pstEntry->bUpperLimitAndUpperFlag = ((dwLimit >> 16) & 0xFF) | bUpperFlags;
     pstEntry->bMiddleBaseAddress2 = (qwBaseAddress >> 24) & 0xFF;
@@ -47,7 +47,7 @@ void kSetGDTEntry16(GDTENTRY16 *pstEntry, QWORD qwBaseAddress, DWORD dwLimit, BY
 void kInitializeTSSSegment(TSSSEGMENT *pstTSS)
 {
     kMemSet(pstTSS, 0, sizeof(TSSSEGMENT));
-    pstTSS->qwIST[0] = 0x800000;
+    pstTSS->qwIST[0] = IST_STARTADDRESS + IST_SIZE;
     pstTSS->wIOMapBaseAddress = 0xFFFF;
 }
 
@@ -72,8 +72,9 @@ void kSetIDTEntry(IDTENTRY *pstEntry, void *pvHandler, WORD wSelector, BYTE bIST
     pstEntry->wLowerBaseAddress = (QWORD)pvHandler & 0xFFFF;
     pstEntry->wSegmentSelector = wSelector;
     pstEntry->bIST = bIST & 0x3;
+    pstEntry->bTypeAndFlags = bType | bFlags;
     pstEntry->wMiddleBaseAddress = ((QWORD)pvHandler >> 16) & 0xFFFF;
-    pstEntry->dwUpperBaseAddress = ((QWORD)pvHandler >> 32);
+    pstEntry->dwUpperBaseAddress = (QWORD)pvHandler >> 32;
     pstEntry->dwReserved = 0;
 }
 
@@ -84,6 +85,5 @@ void kDummyHander(void)
     kPrintString(0, 2, "               Interrupt Occur!!                ");
     kPrintString(0, 3, "================================================");
     while (1)
-    {
-    }
+        ;
 }

@@ -1,5 +1,7 @@
 #include "Types.h"
 #include "Keyboard.h"
+#include "Descriptor.h"
+#include "AssemblyUtility.h"
 
 void kPrintString(int iX, int iY, const char *pcString);
 
@@ -14,16 +16,31 @@ void Main(void)
 
     kPrintString(0, 10, "Switch To IA-32e Mode Success!!");
     kPrintString(0, 11, "IA-32e C Language Kernel Start............[PASS]");
-    kPrintString(0, 12, "Keyboard Active...........................[    ]");
+
+    kPrintString(0, 12, "GDT Initialize And Switch For IA-32e Mode.[    ]");
+    kInitializeGDTTableAndTSS();
+    kLoadGDTR(GDTR_STARTADDRESS);
+    kPrintString(43, 12, "PASS");
+
+    kPrintString(0, 13, "TSS Segment Load..........................[    ]");
+    kLoadTR(GDT_TSSSEGMENT);
+    kPrintString(43, 13, "PASS");
+
+    kPrintString(0, 14, "IDT Initialize............................[    ]");
+    kInitializeIDTTables();
+    kLoadIDTR(IDTR_STARTADDRESS);
+    kPrintString(43, 14, "PASS");
+
+    kPrintString(0, 15, "Keyboard Active...........................[    ]");
 
     if (kActivateKeyboard() == TRUE)
     {
-        kPrintString(43, 12, "PASS");
+        kPrintString(43, 15, "PASS");
         kChangeKeyboardLED(FALSE, FALSE, FALSE);
     }
     else
     {
-        kPrintString(45, 12, "FAIL");
+        kPrintString(45, 15, "FAIL");
         while (1)
             ;
     }
@@ -36,12 +53,15 @@ void Main(void)
 
             if (kConvertScanCodeToASCIICode(bTemp, &(vcTemp[0]), &bFlags) == TRUE)
             {
-                if ((bFlags & KEY_FLAGS_DOWN) /*&& !( bFlags & KEY_FLAGS_EXTENDEDKEY )*/)
+                if ((bFlags & KEY_FLAGS_DOWN))
                 {
-                    char a[2] = {
-                        '0' + bFlags,
-                    };
-                    kPrintString(i++, 13, &a);
+                    kPrintString(i++, 16, vcTemp);
+
+                    if (vcTemp[0] == '0')
+                    {
+                        int temp = 0;
+                        bTemp = bTemp / temp;
+                    }
                 }
             }
         }

@@ -9,7 +9,7 @@ void kInitializePIC(void)
 
     kOutPortByte(PIC_SLAVE_PORT1, 0x11);
     kOutPortByte(PIC_SLAVE_PORT2, PIC_IRQSTARTVECTOR + 8);
-    kOutPortByte(PIC_SLAVE_PORT2, 0x04);
+    kOutPortByte(PIC_SLAVE_PORT2, 0x02);
     kOutPortByte(PIC_SLAVE_PORT2, 0x01);
 }
 

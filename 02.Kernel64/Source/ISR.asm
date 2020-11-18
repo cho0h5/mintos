@@ -71,281 +71,281 @@ global kISRMouse, kISRCoprocessor, kISRHDD1, kISRHDD2, kISRETCInterrupt
     pop rbp
 %endmacro
 
-kISRDivideError:
-    KSAVECONTEXT
-    mov rdi, 0
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    iretq
+; kISRDivideError:
+;     KSAVECONTEXT
+;     mov rdi, 0
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRDebug:
-    KSAVECONTEXT
-    mov rdi, 1
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    iretq
+; kISRDebug:
+;     KSAVECONTEXT
+;     mov rdi, 1
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRNMI:
-    KSAVECONTEXT
-    mov rdi, 2
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    iretq
+; kISRNMI:
+;     KSAVECONTEXT
+;     mov rdi, 2
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRBreakPoint:
-    KSAVECONTEXT
-    mov rdi, 3
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    iretq
+; kISRBreakPoint:
+;     KSAVECONTEXT
+;     mov rdi, 3
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISROverflow:
-    KSAVECONTEXT
-    mov rdi, 4
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    iretq
+; kISROverflow:
+;     KSAVECONTEXT
+;     mov rdi, 4
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRBoundRangeExceeded:
-    KSAVECONTEXT
-    mov rdi, 5
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    iretq
+; kISRBoundRangeExceeded:
+;     KSAVECONTEXT
+;     mov rdi, 5
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRInvalidOpcode:
-    KSAVECONTEXT
-    mov rdi, 6
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    iretq
+; kISRInvalidOpcode:
+;     KSAVECONTEXT
+;     mov rdi, 6
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRDeviceNotAvailable:
-    KSAVECONTEXT
-    mov rdi, 7
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    iretq
+; kISRDeviceNotAvailable:
+;     KSAVECONTEXT
+;     mov rdi, 7
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRDoubleFault:
-    KSAVECONTEXT
-    mov rdi, 8
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    iretq
+; kISRDoubleFault:
+;     KSAVECONTEXT
+;     mov rdi, 8
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRCoprocessorSegmentOverrun:
-    KSAVECONTEXT
-    mov rdi, 9
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    iretq
+; kISRCoprocessorSegmentOverrun:
+;     KSAVECONTEXT
+;     mov rdi, 9
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRInvalidTSS:
-    KSAVECONTEXT
-    mov rdi, 10
-    mov rsi, qword [ rbp + 8 ]
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    add rsp, 8
-    iretq
+; kISRInvalidTSS:
+;     KSAVECONTEXT
+;     mov rdi, 10
+;     mov rsi, qword [ rbp + 8 ]
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     add rsp, 8
+;     iretq
 
-kISRSegmentNotPresent:
-    KSAVECONTEXT
-    mov rdi, 11
-    mov rsi, qword [ rbp + 8 ]
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    add rsp, 8
-    iretq
+; kISRSegmentNotPresent:
+;     KSAVECONTEXT
+;     mov rdi, 11
+;     mov rsi, qword [ rbp + 8 ]
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     add rsp, 8
+;     iretq
 
-kISRStackSegmentFault:
-    KSAVECONTEXT
-    mov rdi, 12
-    mov rsi, qword [ rbp + 8 ]
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    add rsp, 8
-    iretq
+; kISRStackSegmentFault:
+;     KSAVECONTEXT
+;     mov rdi, 12
+;     mov rsi, qword [ rbp + 8 ]
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     add rsp, 8
+;     iretq
 
-kISRGeneralProtection:
-    KSAVECONTEXT
-    mov rdi, 13
-    mov rsi, qword [ rbp + 8 ]
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    add rsp, 8
-    iretq
+; kISRGeneralProtection:
+;     KSAVECONTEXT
+;     mov rdi, 13
+;     mov rsi, qword [ rbp + 8 ]
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     add rsp, 8
+;     iretq
 
-kISRPageFault:
-    KSAVECONTEXT
-    mov rdi, 14
-    mov rsi, qword [ rbp + 8 ]
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    add rsp, 8
-    iretq
+; kISRPageFault:
+;     KSAVECONTEXT
+;     mov rdi, 14
+;     mov rsi, qword [ rbp + 8 ]
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     add rsp, 8
+;     iretq
 
-kISR15:
-    KSAVECONTEXT
-    mov rdi, 15
-    mov rsi, qword [ rbp + 8 ]
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    add rsp, 8
-    iretq
+; kISR15:
+;     KSAVECONTEXT
+;     mov rdi, 15
+;     mov rsi, qword [ rbp + 8 ]
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     add rsp, 8
+;     iretq
 
-kISRFPUError:
-    KSAVECONTEXT
-    mov rdi, 16
-    mov rsi, qword [ rbp + 8 ]
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    add rsp, 8
-    iretq
+; kISRFPUError:
+;     KSAVECONTEXT
+;     mov rdi, 16
+;     mov rsi, qword [ rbp + 8 ]
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     add rsp, 8
+;     iretq
 
-kISRAlignmentCheck:
-    KSAVECONTEXT
-    mov rdi, 17
-    mov rsi, qword [ rbp + 8 ]
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    add rsp, 8
-    iretq
+; kISRAlignmentCheck:
+;     KSAVECONTEXT
+;     mov rdi, 17
+;     mov rsi, qword [ rbp + 8 ]
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     add rsp, 8
+;     iretq
 
-kISRMachineCheck:
-    KSAVECONTEXT
-    mov rdi, 18
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    iretq
+; kISRMachineCheck:
+;     KSAVECONTEXT
+;     mov rdi, 18
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRSIMDError:
-    KSAVECONTEXT
-    mov rdi, 19
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    iretq
+; kISRSIMDError:
+;     KSAVECONTEXT
+;     mov rdi, 19
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRETCException:
-    KSAVECONTEXT
-    mov rdi, 20
-    call kCommonExceptionHandler
-    KLOADCONTEXT
-    iretq
+; kISRETCException:
+;     KSAVECONTEXT
+;     mov rdi, 20
+;     call kCommonExceptionHandler
+;     KLOADCONTEXT
+;     iretq
 
 
-kISRTimer:
-    KSAVECONTEXT
-    mov rdi, 32
-    call kCommonInterruptHandler
-    KLOADCONTEXT
-    iretq
+; kISRTimer:
+;     KSAVECONTEXT
+;     mov rdi, 32
+;     call kCommonInterruptHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRKeyboard:
-    KSAVECONTEXT
-    mov rdi, 33
-    call kKeyboardHandler
-    KLOADCONTEXT
-    iretq
+; kISRKeyboard:
+;     KSAVECONTEXT
+;     mov rdi, 33
+;     call kKeyboardHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRSlavePIC:
-    KSAVECONTEXT
-    mov rdi, 34
-    call kCommonInterruptHandler
-    KLOADCONTEXT
-    iretq
+; kISRSlavePIC:
+;     KSAVECONTEXT
+;     mov rdi, 34
+;     call kCommonInterruptHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRSerial2:
-    KSAVECONTEXT
-    mov rdi, 35
-    call kCommonInterruptHandler
-    KLOADCONTEXT
-    iretq
+; kISRSerial2:
+;     KSAVECONTEXT
+;     mov rdi, 35
+;     call kCommonInterruptHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRSeiral1:
-    KSAVECONTEXT
-    mov rdi, 36
-    call kCommonInterruptHandler
-    KLOADCONTEXT
-    iretq
+; kISRSeiral1:
+;     KSAVECONTEXT
+;     mov rdi, 36
+;     call kCommonInterruptHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRParallel2:
-    KSAVECONTEXT
-    mov rdi, 37
-    call kCommonInterruptHandler
-    KLOADCONTEXT
-    iretq
+; kISRParallel2:
+;     KSAVECONTEXT
+;     mov rdi, 37
+;     call kCommonInterruptHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRFloppy:
-    KSAVECONTEXT
-    mov rdi, 38
-    call kCommonInterruptHandler
-    KLOADCONTEXT
-    iretq
+; kISRFloppy:
+;     KSAVECONTEXT
+;     mov rdi, 38
+;     call kCommonInterruptHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRParallel1:
-    KSAVECONTEXT
-    mov rdi, 39
-    call kCommonInterruptHandler
-    KLOADCONTEXT
-    iretq
+; kISRParallel1:
+;     KSAVECONTEXT
+;     mov rdi, 39
+;     call kCommonInterruptHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRRTC:
-    KSAVECONTEXT
-    mov rdi, 40
-    call kCommonInterruptHandler
-    KLOADCONTEXT
-    iretq
+; kISRRTC:
+;     KSAVECONTEXT
+;     mov rdi, 40
+;     call kCommonInterruptHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRReserved:
-    KSAVECONTEXT
-    mov rdi, 41
-    call kCommonInterruptHandler
-    KLOADCONTEXT
-    iretq
+; kISRReserved:
+;     KSAVECONTEXT
+;     mov rdi, 41
+;     call kCommonInterruptHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRNotUsed1:
-    KSAVECONTEXT
-    mov rdi, 42
-    call kCommonInterruptHandler
-    KLOADCONTEXT
-    iretq
+; kISRNotUsed1:
+;     KSAVECONTEXT
+;     mov rdi, 42
+;     call kCommonInterruptHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRNotUsed2:
-    KSAVECONTEXT
-    mov rdi, 43
-    call kCommonInterruptHandler
-    KLOADCONTEXT
-    iretq
+; kISRNotUsed2:
+;     KSAVECONTEXT
+;     mov rdi, 43
+;     call kCommonInterruptHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRMouse:
-    KSAVECONTEXT
-    mov rdi, 44
-    call kCommonInterruptHandler
-    KLOADCONTEXT
-    iretq
+; kISRMouse:
+;     KSAVECONTEXT
+;     mov rdi, 44
+;     call kCommonInterruptHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRCoprocessor:
-    KSAVECONTEXT
-    mov rdi, 45
-    call kCommonInterruptHandler
-    KLOADCONTEXT
-    iretq
+; kISRCoprocessor:
+;     KSAVECONTEXT
+;     mov rdi, 45
+;     call kCommonInterruptHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRHDD1:
-    KSAVECONTEXT
-    mov rdi, 46
-    call kCommonInterruptHandler
-    KLOADCONTEXT
-    iretq
+; kISRHDD1:
+;     KSAVECONTEXT
+;     mov rdi, 46
+;     call kCommonInterruptHandler
+;     KLOADCONTEXT
+;     iretq
 
-kISRHDD2:
-    KSAVECONTEXT
-    mov rdi, 47
-    call kCommonInterruptHandler
-    KLOADCONTEXT
-    iretq
+; kISRHDD2:
+;     KSAVECONTEXT
+;     mov rdi, 47
+;     call kCommonInterruptHandler
+;     KLOADCONTEXT
+;     iretq
 
 kISRETCInterrupt:
     KSAVECONTEXT

@@ -121,3 +121,13 @@ void kSetIDTEntry(IDTENTRY *pstEntry, void *pvHandler, WORD wSelector, BYTE bIST
     pstEntry->dwUpperBaseAddress = (QWORD)pvHandler >> 32;
     pstEntry->dwReserved = 0;
 }
+
+void kDummyHandler(void)
+{
+    kPrintString(0, 0, "================================================");
+    kPrintString(0, 1, "        Dummy Interrupt Handler Called!!        ");
+    kPrintString(0, 2, "               Interrupt Occur!!                ");
+    kPrintString(0, 3, "================================================");
+    while (1)
+        ;
+}

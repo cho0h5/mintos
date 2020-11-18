@@ -124,6 +124,6 @@ void kSetGDTEntry16(GDTENTRY16 *pstEntry, QWORD qwBaseAddress, DWORD dwLimit, BY
 void kInitializeTSSSegment(TSSSEGMENT *pstTSS);
 void kInitializeIDTTables(void);
 void kSetIDTEntry(IDTENTRY *pstEntry, void *pvHandler, WORD wSelector, BYTE bIST, BYTE bFlags, BYTE bType);
-void kDummyHander(void);
+void kDummyHandler(void);
 
 #endif

@@ -41,6 +41,7 @@ void kKeyboardHandler(int iVectorNumber)
 
     vcBuffer[5] = '0' + iVectorNumber / 10;
     vcBuffer[6] = '0' + iVectorNumber % 10;
+    vcBuffer[8] = '0' + g_iKeyboardInterruptCount;
     g_iKeyboardInterruptCount = (g_iKeyboardInterruptCount + 1) % 10;
     kPrintString(0, 0, vcBuffer);
 
